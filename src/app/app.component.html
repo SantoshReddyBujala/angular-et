@@ -14,3 +14,10 @@
     >{{formatString | formatExp:'_'}}</label
   >
 </div>
+<h1>Parent to Child component communication</h1>
+<app-child-input
+  [inputPassing]="inputPassing"
+  (outputPassing)="displayOutput($event)"
+></app-child-input>
+<h1>{{childToParent}}</h1>
+<h2>Custom Service with Set Get</h2>
