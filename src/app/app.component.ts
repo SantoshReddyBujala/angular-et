@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { FormatExpPipe } from "../shared/pipes/format-exp.pipe";
 import { ChildInputComponent } from "../shared/components/child-input/child-input.component";
 import { SetGetService } from '../shared/services/set-get.service';
+import { PersonsInfoService } from '../shared/services/persons-info.service';
 
 @Component({
   selector: 'app-root',
@@ -18,25 +19,15 @@ export class AppComponent implements OnInit {
   formatString = 'Test_Test1';
   inputPassing = 'Passing string from parent to child';
   childToParent!: string;
-  constructor(public setget: SetGetService) { }
+  personsData!: any;
+  constructor(public setget: SetGetService,
+    public personsInfo: PersonsInfoService
+  ) { }
   ngOnInit(): void {
     this.setget.setFirstValue('Manvith Reddy Bujala');
+    this.personsData = this.personsInfo.getPersonsInformation();
   }
-  personsData: PersonsDetails[] = [{
-    id: 1,
-    firstName: 'Santosh',
-    lastName: 'Bujala'
-  },
-  {
-    id: 2,
-    firstName: 'Swetha',
-    lastName: 'Gangireddy'
-  },
-  {
-    id: 3,
-    firstName: 'Manvith',
-    lastName: 'Bujala'
-  }]
+
 
   onClick(val?: string): void {
     alert(val)
