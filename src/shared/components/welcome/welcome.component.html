@@ -1,0 +1,33 @@
+<h2>Angular ET features of 'if' and 'for'</h2>
+<div>
+  <h2>Angular ET features of ng class directive</h2>
+  @if (personsData.length){ @for (person of personsData; track $index) {
+  <h1 [ngClass]="person.id == 1 ? 'my-color' : 'red-color'">
+    {{person.firstName}} {{person.lastName}}
+  </h1>
+  } }
+</div>
+<div>
+  Custom Pipes
+  <label (click)="onClick(formatString)"
+    >{{formatString | formatExp:'_'}}</label
+  >
+</div>
+<h1>Parent to Child component communication</h1>
+<app-child-input
+  [inputPassing]="inputPassing"
+  (outputPassing)="displayOutput($event)"
+></app-child-input>
+<h1>{{childToParent}}</h1>
+<h2>Custom Service with Set Get</h2>
+
+<div>
+  <h2>Angular ET features of ng class directive with Categories Data</h2>
+  @if (categoriesData?.length){ @for (category of categoriesData; track $index)
+  {
+  <h1>
+    <a [routerLink]="['/category', category._id]"> {{category?.name}}</a>
+  </h1>
+  } }
+</div>
+<a routerLink="/details">Click Here to Navigate</a>

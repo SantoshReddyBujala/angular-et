@@ -12,7 +12,7 @@ export class CategoriesService {
   getCategories(): Observable<any> {
     let header = {
       headers: new HttpHeaders()
-        .set('Authorization', `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjA5YzBhMTBjNzkyMGNkYzVhNDhiOTMiLCJpYXQiOjE3MTkxMDQ5MTYsImV4cCI6MTcxOTE5MTMxNn0.5ulzniBB7K4clLm_Kwu10UiP_mdKjTefclri4zQ7_S0`)
+        .set('Authorization', `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjA5YzBhMTBjNzkyMGNkYzVhNDhiOTMiLCJpYXQiOjE3MTkxNTAyNTUsImV4cCI6MTcxOTIzNjY1NX0.XZorApjgUlPd8LkGBUWChq-CeDQOVbWQ4-xfk7W45dU`)
     }
 
     return this.httpClient.get(this.webURL, header).pipe(catchError(this.handleError));
