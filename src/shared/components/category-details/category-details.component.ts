@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
@@ -20,26 +20,27 @@ import { MatRadioModule } from '@angular/material/radio';
   providers: [provideNativeDateAdapter()],
 })
 export class CategoryDetailsComponent implements OnInit {
-  contactForm = new FormGroup({
-    id: new FormControl(),
-    firstName: new FormControl(),
-    lastName: new FormControl(),
-    dateOfBirth: new FormControl(),
-    ranking: new FormControl(),
-    phone: new FormGroup({
-      phoneNumber: new FormControl(),
-      phoneType: new FormControl(),
+  contactForm = this.formBuilder.nonNullable.group({
+    id: '',
+    firstName: '',
+    lastName: '',
+    dateOfBirth: <String | null>null,
+    ranking: '',
+    typeOfData: <boolean | null>null,
+    phone: this.formBuilder.nonNullable.group({
+      phoneNumber: '',
+      phoneType: '',
     }),
-    address: new FormGroup({
-      addr: new FormControl(),
-      city: new FormControl(),
-      state: new FormControl(),
-      zipcode: new FormControl(),
-      country: new FormControl()
+    address: this.formBuilder.nonNullable.group({
+      addr: '',
+      city: '',
+      state: '',
+      zipcode: '',
+      country: ''
     }),
-    email: new FormGroup({
-      emailAddr: new FormControl(),
-      emailType: new FormControl()
+    email: this.formBuilder.nonNullable.group({
+      emailAddr: '',
+      emailType: ''
     })
   })
 
@@ -66,7 +67,8 @@ export class CategoryDetailsComponent implements OnInit {
 
   IdParam?: any;
   constructor(private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {
 
   }
@@ -80,6 +82,7 @@ export class CategoryDetailsComponent implements OnInit {
       this.contactForm.controls.lastName.setValue('Bujala'),
       this.contactForm.controls.dateOfBirth.setValue('1985-06-08'),
       this.contactForm.controls.ranking.setValue('40'),
+      this.contactForm.controls.typeOfData.setValue(true),
       this.contactForm.controls.phone.controls.phoneNumber.setValue('386-373-3745'),
       this.contactForm.controls.phone.controls.phoneType.setValue('mobile'),
       this.contactForm.controls.email.controls.emailAddr.setValue('test@test.co'),
