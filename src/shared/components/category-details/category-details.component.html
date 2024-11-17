@@ -1,3 +1,131 @@
 <p>category-details works!</p>
 <h1>Category ID: {{IdParam}}</h1>
 <button (click)="backButton()">Back</button>
+<form [formGroup]="contactForm" (ngSubmit)="saveDetails()">
+  <div class="displayFlex">Personal</div>
+  <div class="displayFlex">
+    <mat-form-field>
+      <mat-label>Fristname</mat-label>
+      <input formControlName="firstName" matInput type="text" />
+    </mat-form-field>
+  </div>
+  <div class="displayFlex">
+    <mat-form-field>
+      <mat-label>Lastname</mat-label>
+      <input formControlName="lastName" matInput type="text" />
+    </mat-form-field>
+  </div>
+  <div class="displayFlex">
+    <mat-form-field>
+      <mat-label>MM/DD/YYYY</mat-label>
+      <input formControlName="dateOfBirth" matInput [matDatepicker]="picker" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="displayFlex">
+    <mat-label>Ranking:</mat-label>
+    <mat-slider>
+      <input formControlName="ranking" matSliderThumb />
+    </mat-slider>
+  </div>
+  <div>
+    <mat-checkbox>Personal</mat-checkbox>
+  </div>
+  <div class="displayFlex">Communication</div>
+  <div formGroupName="phone">
+    <div class="displayFlex">
+      <mat-form-field>
+        <mat-label>Phone</mat-label>
+        <input formControlName="phoneNumber" type="text" matInput />
+      </mat-form-field>
+      <span class="p1"></span>
+      <button mat-fab disabled aria-label="add icon">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div class="displayFlex">
+      <mat-form-field>
+        <mat-label>Phone Type</mat-label>
+        <mat-select formControlName="phoneType">
+          @for (phone of phones; track phone) {
+          <mat-option [value]="phone.value">{{phone.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div formGroupName="email">
+    <div class="displayFlex">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input formControlName="emailAddr" type="email" matInput />
+      </mat-form-field>
+    </div>
+    <div class="displayFlex">
+      <mat-radio-group
+        formControlName="emailType"
+        aria-label="Select an option"
+      >
+        <mat-radio-button value="1">Personal</mat-radio-button>
+        <mat-radio-button value="2">Work</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <div class="displayFlex">Address</div>
+  <div formGroupName="address">
+    <div class="displayFlex">
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input formControlName="addr" type="text" matInput />
+      </mat-form-field>
+      <span class="p1"></span>
+      <button mat-fab disabled aria-label="add icon">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div class="displayFlex">
+      <mat-form-field>
+        <mat-label>City</mat-label>
+        <input formControlName="city" type="text" matInput />
+      </mat-form-field>
+    </div>
+    <div class="displayFlex">
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select formControlName="state">
+          @for (state of states; track state) {
+          <mat-option [value]="state.name">{{state.value}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="displayFlex">
+      <mat-form-field>
+        <mat-label>Zipcode</mat-label>
+        <input formControlName="zipcode" type="text" matInput />
+      </mat-form-field>
+    </div>
+    <div class="displayFlex">
+      <mat-form-field>
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country">
+          @for (country of countries; track country) {
+          <mat-option [value]="country.name">{{country.value}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="displayFlex">
+    <button mat-raised-button class="primary" type="submit">
+      Submit
+    </button>
+    <span class="p1"></span>
+    <button mat-raised-button>Clear</button>
+  </div>
+</form>
