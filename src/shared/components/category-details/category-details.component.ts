@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
@@ -11,10 +11,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
+import { DatePipe } from '@angular/common';
+import { restrictedWords } from '../../validators/restricted-words.validator';
+
 
 @Component({
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSliderModule, MatCheckboxModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, ReactiveFormsModule],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSliderModule, MatCheckboxModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, ReactiveFormsModule, DatePipe],
   templateUrl: './category-details.component.html',
   styleUrl: './category-details.component.scss',
   providers: [provideNativeDateAdapter()],
@@ -22,9 +25,9 @@ import { MatRadioModule } from '@angular/material/radio';
 export class CategoryDetailsComponent implements OnInit {
   contactForm = this.formBuilder.nonNullable.group({
     id: '',
-    firstName: '',
+    firstName: ['', [Validators.required, Validators.minLength(3)]],
     lastName: '',
-    dateOfBirth: <String | null>null,
+    dateOfBirth: <Date | null>null,
     ranking: '',
     typeOfData: <boolean | null>null,
     phone: this.formBuilder.nonNullable.group({
@@ -32,16 +35,17 @@ export class CategoryDetailsComponent implements OnInit {
       phoneType: '',
     }),
     address: this.formBuilder.nonNullable.group({
-      addr: '',
-      city: '',
-      state: '',
-      zipcode: '',
-      country: ''
+      addr: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zipcode: ['', Validators.required],
+      country: ['', Validators.required]
     }),
     email: this.formBuilder.nonNullable.group({
       emailAddr: '',
       emailType: ''
-    })
+    }),
+    notes: ['', restrictedWords(['One', 'Two'])]
   })
 
   phones = [
@@ -64,6 +68,9 @@ export class CategoryDetailsComponent implements OnInit {
     { name: 'GA', value: 'Gergia' }
   ];
 
+  get firstName() {
+    return this.contactForm.controls.firstName;
+  }
 
   IdParam?: any;
   constructor(private route: ActivatedRoute,
@@ -80,7 +87,8 @@ export class CategoryDetailsComponent implements OnInit {
   patchValues(): void {
     this.contactForm.controls.firstName.setValue("Santosh"),
       this.contactForm.controls.lastName.setValue('Bujala'),
-      this.contactForm.controls.dateOfBirth.setValue('1985-06-08'),
+
+      this.contactForm.controls.dateOfBirth.setValue(new Date(1985, 6, 8)),
       this.contactForm.controls.ranking.setValue('40'),
       this.contactForm.controls.typeOfData.setValue(true),
       this.contactForm.controls.phone.controls.phoneNumber.setValue('386-373-3745'),
@@ -97,6 +105,6 @@ export class CategoryDetailsComponent implements OnInit {
     this.router.navigate(['/welcome'])
   }
   saveDetails(): void {
-    console.log(this.contactForm.value)
+    console.log(this.contactForm.controls.dateOfBirth.value)
   }
 }

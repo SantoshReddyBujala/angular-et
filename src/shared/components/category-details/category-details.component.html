@@ -8,6 +8,11 @@
       <mat-label>Fristname</mat-label>
       <input formControlName="firstName" matInput type="text" />
     </mat-form-field>
+    @if (firstName.errors?.['required'] && firstName.touched) {
+    <mat-error>Please enter Firstname</mat-error>
+    } @if (firstName.errors?.['minlength'] && firstName.touched){
+    <mat-error>Firstname must be at least 3 characters</mat-error>
+    }
   </div>
   <div class="displayFlex">
     <mat-form-field>
@@ -121,8 +126,34 @@
       </mat-form-field>
     </div>
   </div>
+  @if (contactForm.controls.address.invalid &&
+  contactForm.controls.address.dirty) {
+  <em class="red">Incomplete Address</em>
+  }
+
   <div class="displayFlex">
-    <button mat-raised-button class="primary" type="submit">
+    <mat-form-field>
+      <mat-label>Notes</mat-label>
+      <textarea
+        matInput
+        formControlName="notes"
+        placeholder="Ex. It makes me feel..."
+      ></textarea>
+      @if (contactForm.controls.notes.errors?.['restrictedWords']) {
+      <mat-error
+        >Restricted words
+        found:{{contactForm.controls.notes.errors?.['restrictedWords']}}</mat-error
+      >
+      }
+    </mat-form-field>
+  </div>
+  <div class="displayFlex">
+    <button
+      mat-raised-button
+      class="primary"
+      type="submit"
+      [disabled]="contactForm.invalid"
+    >
       Submit
     </button>
     <span class="p1"></span>
