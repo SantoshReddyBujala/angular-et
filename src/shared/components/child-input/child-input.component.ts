@@ -2,11 +2,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SetGetService } from '../../services/set-get.service';
 
 @Component({
-  selector: 'app-child-input',
-  standalone: true,
-  imports: [],
-  templateUrl: './child-input.component.html',
-  styleUrl: './child-input.component.scss'
+    selector: 'app-child-input',
+    imports: [],
+    templateUrl: './child-input.component.html',
+    styleUrl: './child-input.component.scss'
 })
 export class ChildInputComponent {
   @Input() inputPassing!: string;

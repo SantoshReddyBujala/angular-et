@@ -16,11 +16,10 @@ import { restrictedWords } from '../../validators/restricted-words.validator';
 
 
 @Component({
-  standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSliderModule, MatCheckboxModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, ReactiveFormsModule, DatePipe],
-  templateUrl: './category-details.component.html',
-  styleUrl: './category-details.component.scss',
-  providers: [provideNativeDateAdapter()],
+    imports: [FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSliderModule, MatCheckboxModule, MatSelectModule, MatButtonModule, MatIconModule, MatRadioModule, ReactiveFormsModule, DatePipe],
+    templateUrl: './category-details.component.html',
+    styleUrl: './category-details.component.scss',
+    providers: [provideNativeDateAdapter()]
 })
 export class CategoryDetailsComponent implements OnInit {
   contactForm = this.formBuilder.nonNullable.group({

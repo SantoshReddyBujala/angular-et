@@ -10,11 +10,10 @@ import { CategoriesService } from '../../services/categories.service';
 
 
 @Component({
-  selector: 'app-welcome',
-  standalone: true,
-  imports: [RouterOutlet, UpperCasePipe, NgClass, FormatExpPipe, ChildInputComponent, RouterModule],
-  templateUrl: './welcome.component.html',
-  styleUrl: './welcome.component.scss'
+    selector: 'app-welcome',
+    imports: [RouterOutlet, UpperCasePipe, NgClass, FormatExpPipe, ChildInputComponent, RouterModule],
+    templateUrl: './welcome.component.html',
+    styleUrl: './welcome.component.scss'
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
   formatString = 'Test_Test1';
